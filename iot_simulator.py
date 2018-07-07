@@ -181,9 +181,9 @@ def main():
     random.seed(args.device_id)  # A given device ID will always generate
                                  # the same random data
 
-    simulated_temp = 10 + random.random() * 20
+    simulated_temp = 10 + random.random() * 7
 
-    simulated_humidity = 10 + random.random() * 20
+    simulated_humidity = 10 + random.random() * 5
 
     simulated_dew_point = 10 + random.random() * 20
 
@@ -196,7 +196,7 @@ def main():
     for i in range(1, args.num_messages + 1):
 
         simulated_temp = simulated_temp + temperature_trend * random.normalvariate(0.01,0.005)
-        payload = {"timestamp": int(time.time()), "device": args.device_id, "temperature": simulated_temp, "humidity": simulated_humidity, "dew point": simulated_dew_point}
+        payload = {"timestamp": int(time.time()), "device": args.device_id, "temperature": simulated_temp, "humidity": simulated_humidity, "dewpoint": simulated_dew_point}
         print('Publishing message {} of {}: \'{}\''.format(
                 i, args.num_messages, payload))
         jsonpayload =  json.dumps(payload,indent=4)
