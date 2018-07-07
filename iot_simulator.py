@@ -196,6 +196,11 @@ def main():
     for i in range(1, args.num_messages + 1):
 
         simulated_temp = simulated_temp + temperature_trend * random.normalvariate(0.01,0.005)
+        simulated_humidity = simulated_humidity + temperature_trend * random.normalvariate(0.01,0.005)
+        simulated_dew_point = simulated_dew_point + temperature_trend * random.normalvariate(0.01,0.005)
+
+
+
         payload = {"timestamp": int(time.time()), "device": args.device_id, "temperature": simulated_temp, "humidity": simulated_humidity, "dewpoint": simulated_dew_point}
         print('Publishing message {} of {}: \'{}\''.format(
                 i, args.num_messages, payload))
