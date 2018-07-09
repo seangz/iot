@@ -1,0 +1,39 @@
+[
+      {
+        "description":"timestamp",
+        "mode":"NULLABLE",
+        "name":"timestamp",
+        "type":"TIMESTAMP"
+      },
+      {
+        "description":"device",
+        "mode":"NULLABLE",
+        "name":"device",
+        "type":"STRING"
+      },
+      {
+        "description":"temperature",
+        "mode":"NULLABLE",
+        "name":"temperature",
+        "type":"FLOAT"
+      },
+      {
+        "description":"pressure",
+        "mode":"NULLABLE",
+        "name":"pressure",
+        "type":"FLOAT"
+      },
+      {
+        "description":"humidity",
+        "mode":"NULLABLE",
+        "name":"humidity",
+        "type":"FLOAT"
+      },
+      {
+        "description":"dewpoint",
+        "mode":"NULLABLE",
+        "name":"dewpoint",
+        "type":"FLOAT"
+      }
+
+]

@@ -185,6 +185,8 @@ def main():
 
     simulated_humidity = 10 + random.random() * 5
 
+    simulated_pressure = 10 + random.random() * 20
+
     simulated_dew_point = 10 + random.random() * 20
 
     if random.random() > 0.5:
@@ -198,10 +200,11 @@ def main():
         simulated_temp = simulated_temp + temperature_trend * random.normalvariate(0.01,0.005)
         simulated_humidity = simulated_humidity + temperature_trend * random.normalvariate(0.01,0.005)
         simulated_dew_point = simulated_dew_point + temperature_trend * random.normalvariate(0.01,0.005)
+        simulated_pressure= simulated_pressure + temperature_trend * random.normalvariate(0.01,0.005)
 
 
 
-        payload = {"timestamp": int(time.time()), "device": args.device_id, "temperature": simulated_temp, "humidity": simulated_humidity, "dewpoint": simulated_dew_point}
+        payload = {"timestamp": int(time.time()), "device": args.device_id, "temperature": simulated_temp, "humidity": simulated_humidity, "dewpoint": simulated_dew_point, "pressure": simulated_pressure}
         print('Publishing message {} of {}: \'{}\''.format(
                 i, args.num_messages, payload))
         jsonpayload =  json.dumps(payload,indent=4)
