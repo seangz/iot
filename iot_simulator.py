@@ -204,7 +204,7 @@ def main():
 
 
 
-        payload = {"timestamp": int(time.time()), "device": args.device_id, "temperature": simulated_temp, "humidity": simulated_humidity, "dewpoint": simulated_dew_point, "pressure": simulated_pressure}
+        payload = {"timestamp": int(time.time()), "device": args.device_id, "temperature": simulated_temp,"pressure": simulated_pressure, "humidity": simulated_humidity, "dewpoint": simulated_dew_point}
         print('Publishing message {} of {}: \'{}\''.format(
                 i, args.num_messages, payload))
         jsonpayload =  json.dumps(payload,indent=4)
