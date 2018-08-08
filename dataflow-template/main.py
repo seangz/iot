@@ -4,12 +4,12 @@ import time
 import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
 
-GCS_BUCKET = 'adventures-on-gcp'
-PROJECT = 'adventures-on-gcp'
-JOB_NAME = 'bq-upload'
+GCS_BUCKET = 'function-sg'
+PROJECT = 'iot-seang'
+JOB_NAME = 'gcstobq'
 
-BQ_DATESET = 'playing'
-BQ_OUTPUT_TABLE = 'sample_table'
+BQ_DATESET = 'iot_seang'
+BQ_OUTPUT_TABLE = 'product_quality'
 BQ_OUTPUT_SCHEME = 'timestamp:STRING,location:STRING,product:STRING,condition:STRING,age:INTEGER,start_weight:INTEGER,end_weight:INTEGER'
 
 
