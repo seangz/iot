@@ -4,12 +4,12 @@ import time
 import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
 
-GCS_BUCKET = 'function-sg'
-PROJECT = 'iot-seang'
-JOB_NAME = 'gcstobq'
+GCS_BUCKET = 'adventures-on-gcp'
+PROJECT = 'adventures-on-gcp'
+JOB_NAME = 'bq-upload'
 
-BQ_DATESET = 'iot_seang'
-BQ_OUTPUT_TABLE = 'product_quality'
+BQ_DATESET = 'playing'
+BQ_OUTPUT_TABLE = 'sample_table'
 BQ_OUTPUT_SCHEME = 'timestamp:STRING,location:STRING,product:STRING,condition:STRING,age:INTEGER,start_weight:INTEGER,end_weight:INTEGER'
 
 
@@ -32,6 +32,16 @@ class CSVtoDict(beam.DoFn):
             pass
 
 
+class TemplatedOptions(PipelineOptions):
+    @classmethod
+    def _add_argparse_args(cls, parser):
+        parser.add_value_provider_argument(
+            '--input',
+            # required=True,
+            # default='gs://adventures-on-gcp/sampe.csv',
+            help='Path of the file to read from')
+
+
 def dataflow(run_locally=False):
     pipeline_options = {
         'project': PROJECT,
@@ -44,23 +54,19 @@ def dataflow(run_locally=False):
         # 'num_workers': 15,
         'disk_size_gb': 60,
         'temp_location': 'gs://' + GCS_BUCKET + '/temp',
+        'template_location': 'gs://{}/templates/csv2bq_template'.format(GCS_BUCKET),
         # 'requirements_file': 'requirements.txt',
-        # 'save_main_session': True
+        'save_main_session': True
     }
-
-    if run_locally:
-        input_file_path = 'sample.csv'
-    else:
-        input_file_path = 'gs://{BUCKET}/csv_dump/sample.csv'.format(BUCKET=GCS_BUCKET)
 
     if run_locally:
         pipeline_options['runner'] = 'DirectRunner'
 
     options = PipelineOptions.from_dictionary(pipeline_options)
-    p = beam.Pipeline(options=options)
+    custom_options = options.view_as(TemplatedOptions)
 
     with beam.Pipeline(options=options) as p:
-        (p | 'Reading input file' >> beam.io.ReadFromText(input_file_path)
+        (p | 'Reading input file' >> beam.io.ReadFromText(custom_options.input)
          | 'Converting from csv to dict' >> beam.ParDo(CSVtoDict(),
                                                        ['timestamp', 'location', 'product', 'condition', 'age',
                                                         'start_weight', 'end_weight'])
@@ -68,7 +74,7 @@ def dataflow(run_locally=False):
                                                                table=BQ_OUTPUT_TABLE,
                                                                create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
                                                                write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND,
-                                                               #write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,
+                                                               # write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,
                                                                schema=BQ_OUTPUT_SCHEME
                                                                )
          )
