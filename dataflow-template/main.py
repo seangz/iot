@@ -75,5 +75,5 @@ def dataflow(run_locally=False):
 
 
 if __name__ == '__main__':
-    run_locally = True
+    run_locally = False
     dataflow(run_locally)
