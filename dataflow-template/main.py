@@ -67,8 +67,8 @@ def dataflow(run_locally=False):
          | 'Write data to BigQuery' >> beam.io.WriteToBigQuery(project=PROJECT, dataset=BQ_DATESET,
                                                                table=BQ_OUTPUT_TABLE,
                                                                create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
-                                                               # write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND,
-                                                               write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,
+                                                               write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND,
+                                                               #write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,
                                                                schema=BQ_OUTPUT_SCHEME
                                                                )
          )
