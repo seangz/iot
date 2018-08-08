@@ -1,0 +1,32 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "timestamp",
+      "type": "STRING"
+    },
+    {
+      "name": "location",
+      "type": "STRING"
+    },
+    {
+      "name": "product",
+      "type": "STRING"
+    },
+    {
+      "name": "condition",
+      "type": "STRING"
+    },
+    {
+      "name": "age",
+      "type": "INTEGER"
+    },
+    {
+      "name": "start_weight",
+      "type": "INTEGER"
+    },
+    {
+      "name": "end_weight",
+      "type": "INTEGER"
+    }
+  ]
+}
