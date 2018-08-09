@@ -38,7 +38,7 @@ class TemplatedOptions(PipelineOptions):
         parser.add_value_provider_argument(
             '--input',
             # required=True,
-            # default='gs://adventures-on-gcp/sampe.csv',
+            # default='gs://dataflow-input-sg/sample.csv',
             help='Path of the file to read from')
 
 
